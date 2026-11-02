@@ -1,0 +1,36 @@
+import pandas as pd
+import spacegm
+
+import config
+
+
+def main():
+    labels = pd.read_csv(config.LABEL_PATH)
+    region_ids = labels["REGION_ID"].drop_duplicates().tolist()
+    config.GRAPH_ROOT.mkdir(parents=True, exist_ok=True)
+
+    for region_id in region_ids:
+        coordinates = config.REGION_TABLE_ROOT / f"{region_id}.cell_data.csv"
+        cell_types = config.REGION_TABLE_ROOT / f"{region_id}.cell_types.csv"
+        graph_path = config.GRAPH_ROOT / f"{region_id}.gpkl"
+        missing = [path for path in (coordinates, cell_types) if not path.exists()]
+        if missing:
+            raise FileNotFoundError(f"Missing files for {region_id}: {missing}")
+        if graph_path.exists():
+            print(f"Skipping existing graph: {region_id}")
+            continue
+
+        spacegm.construct_graph_for_region(
+            region_id,
+            cell_coords_file=str(coordinates),
+            cell_types_file=str(cell_types),
+            graph_output=str(graph_path),
+            voronoi_polygon_img_output=None,
+            graph_img_output=None,
+            figsize=10,
+        )
+        print(f"Built graph: {region_id}")
+
+
+if __name__ == "__main__":
+    main()

@@ -228,7 +228,22 @@ The center-cell type is masked before prediction. The model therefore learns fro
 
 The `v3codex` notebooks document the original baseline workflow. It uses prebuilt spatial graphs and primarily relies on cell-type features. The v4 scripts are the recommended public workflow because they include explicit HE preprocessing, graph construction, configurable paths, named splits, and separated analysis stages.
 
-The `ST_GNN` directory contains a separate experimental workflow and is not required by this pipeline.
+## ST data and frozen transfer learning
+
+`ST_GNN/` is a second workflow for a dataset that contains cell coordinates and cell types but not the HE feature tables. Its graph-level label column is `MET_type`.
+
+The transfer step loads a CODEX-trained checkpoint, replaces the cell-type embedding, feature projection, and prediction heads for the new dataset, and freezes the pretrained GIN message-passing layers. Only the new input layers and task heads are fine-tuned.
+
+Run [ST_GNN/pipeline.ipynb](ST_GNN/pipeline.ipynb) from top to bottom, or run the scripts individually:
+
+```text
+ST_GNN/01_build_graphs.py
+ST_GNN/02_train_baseline.py      # optional from-scratch baseline
+ST_GNN/03_finetune_frozen.py     # frozen CODEX transfer
+ST_GNN/04_evaluate.py
+```
+
+Place the ST tables in `data/st_gnn/` and the CODEX checkpoint at `checkpoints/codex_pretrained.pt`. The source-model dimensions are declared in `ST_GNN/config.py` and must match that checkpoint. Region splits are aligned by `REGION_ID`, not by the original row position of the label table.
 
 ## Reproducibility and release notes
 

@@ -1,6 +1,7 @@
 # Local data and generated artifacts
 data/
 outputs/
+checkpoints/
 
 # Python caches
 __pycache__/
