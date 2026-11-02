@@ -1,15 +1,15 @@
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-DATA_ROOT = PROJECT_ROOT / "data" / "st_gnn"
+DATA_ROOT = PROJECT_ROOT / "data" / "Stereo-seq"
 REGION_TABLE_ROOT = DATA_ROOT / "regions"
 LABEL_PATH = DATA_ROOT / "graph_level_tasks.csv"
 
-DATASET_ROOT = PROJECT_ROOT / "outputs" / "st_gnn" / "example_dataset"
+DATASET_ROOT = PROJECT_ROOT / "outputs" / "Stereo-seq" / "example_dataset"
 GRAPH_ROOT = DATASET_ROOT / "graph"
-MODEL_ROOT = PROJECT_ROOT / "outputs" / "st_gnn" / "models"
-ANALYSIS_ROOT = PROJECT_ROOT / "outputs" / "st_gnn" / "analysis"
-SPLIT_PATH = PROJECT_ROOT / "outputs" / "st_gnn" / "region_splits.npz"
+MODEL_ROOT = PROJECT_ROOT / "outputs" / "Stereo-seq" / "models"
+ANALYSIS_ROOT = PROJECT_ROOT / "outputs" / "Stereo-seq" / "analysis"
+SPLIT_PATH = PROJECT_ROOT / "outputs" / "Stereo-seq" / "region_splits.npz"
 
 CODEX_CHECKPOINT_PATH = PROJECT_ROOT / "checkpoints" / "codex_pretrained.pt"
 BASELINE_CHECKPOINT_PATH = MODEL_ROOT / "st_baseline" / "model_final.pt"
