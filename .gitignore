@@ -1,0 +1,19 @@
+# Local data and generated artifacts
+data/
+outputs/
+
+# Python caches
+__pycache__/
+*.py[cod]
+
+# Notebook checkpoints
+.ipynb_checkpoints/
+
+# Local environments
+.venv/
+venv/
+env/
+
+# IDE files
+.vscode/
+.idea/
